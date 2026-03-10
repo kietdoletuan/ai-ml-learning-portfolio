@@ -14,4 +14,4 @@ the output.
 
 **Data**
 -Titanic: https://www.kaggle.com/datasets/yasserh/titanic-dataset
--Weather: https://www.kaggle.com/datasets/budincsevity/szeged-weather
+-Weather: https://www.kaggle.com/datasets/budincsevity/szeged-weather FILTERED OUT ONLY TEMPERATURE AND DATE

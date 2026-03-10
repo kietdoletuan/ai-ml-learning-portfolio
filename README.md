@@ -15,7 +15,7 @@ Every lesson subfolder follows the same layout:
 ```
 lesson_name/
 ├── lesson_replication.py     ← optional: code from the lesson itself 
-├── project_[name].py         ← independent build using the lesson concept
+├── project_[name]        ← independent build using the lesson concept
 ├── data/                     ← any datasets used (CSV, XLSX, etc.)
 │   └── dataset.csv
 └── README.md                 ← optional: what was built and what was learned
