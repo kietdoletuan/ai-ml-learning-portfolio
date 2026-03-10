@@ -25,4 +25,4 @@ lesson_name/
 ## Related
 
 - `kaggle/` — competition notebooks and submissions  
-- `capstone/` — end-of-year major project combining multiple phases  
+- `projects/` — merged with `capstone/` to store every projects that isn't built for a singular lesson
