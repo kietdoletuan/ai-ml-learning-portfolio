@@ -32,6 +32,11 @@ ai-ml-learning-portfolio/
 │
 └── projects/  - store projects that aren't built for a singular lesson
 ```
+##Tools & Stack
+- Languages: Python, SQL
+- Libraries: NumPy, Pandas, Matplotlib, Seaborn
+- Tools: VS Code, Jupyter, Git, Excel, Power BI, Tableau
+- Datasets: Kaggle 
 
 
 ## Related
