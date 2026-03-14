@@ -23,7 +23,7 @@ ai-ml-learning-portfolio/
 │   │   │   └── dataset.csv
 │   │   └── README.md  
 │   ├── ...
-│   └── 2025cohort/ - studided in parralel as advanced preparation
+│   └── 2025cohort/ - studied in parralel as advanced preparation
 │       ├── week01/
 │       └── ...
 │
