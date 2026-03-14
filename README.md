@@ -13,16 +13,25 @@ One subfolder per lesson. Each subfolder may contains the replication code from 
 Every lesson subfolder follows the same layout:
 
 ```
-lesson_name/
-├── lesson_replication.py     ← optional: code from the lesson itself 
-├── project_[name]        ← independent build using the lesson concept
-├── data/                     ← any datasets used (CSV, XLSX, etc.)
-│   └── dataset.csv
-└── README.md                 ← optional: what was built and what was learned
+ai-ml-learning-portfolio/
+│
+├── course_work_projects/
+│   ├── lesson_name/
+│   │   ├── lesson_replication.py     - optional: code from the lesson itself 
+│   │   ├── project_[name]        - independent build using the lesson concept
+│   │   ├── data/                     - any datasets used (CSV, XLSX, etc.)
+│   │   │   └── dataset.csv
+│   │   └── README.md  
+│   ├── ...
+│   └── 2025cohort/ - studided in parralel as advanced preparation
+│       ├── week01/
+│       └── ...
+│
+├── kaggle/ - competition notebooks and submissions  
+│  
+│
+└── projects/  - store projects that aren't built for a singular lesson
 ```
 
 
 ## Related
-
-- `kaggle/` — competition notebooks and submissions  
-- `projects/` — merged with `capstone/` to store every projects that isn't built for a singular lesson
