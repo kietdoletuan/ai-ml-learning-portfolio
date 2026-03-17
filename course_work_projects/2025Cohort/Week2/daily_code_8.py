@@ -92,7 +92,7 @@ for i in range(len(mat_a)):
 print(mat_sum)
 print(mat_sub)
 
-dot_product = []
+product = []
 for i in range(len(mat_a)):
     cal_dot = []
     for j in range(len(mat_a)):
@@ -100,8 +100,8 @@ for i in range(len(mat_a)):
         for k in range(len(mat_a)):
             sum_dot += mat_a[i][k] * mat_b[k][j]
         cal_dot.append(sum_dot)
-    dot_product.append(cal_dot)
-print(dot_product)
+    product.append(cal_dot)
+print(product)
 
 
 
@@ -132,7 +132,14 @@ for i , test in enumerate (test_cases) :
 
 #Quiz 8 - moving average
 def moving_average(lst, k):
-    lst
+    result = []
+
+    for i in range(k - 1, len(lst)):
+        window = lst[i - k + 1 : i + 1]
+        avg = sum(window) / k
+        result.append(avg)
+    return result
+
     
 test_cases_1 = [
     ([1, 2, 3, 4, 5, 6, 7, 8, 9], 3),
@@ -141,5 +148,48 @@ test_cases_1 = [
 ]
 
 for i , test in enumerate (test_cases_1) :
-    result = normalize(test)
+    result = moving_average(test[0], test[1])
     print(f" Test {i +1}: {result}")
+
+
+#Quiz 9 - Dot Product
+def dot_product(v1, v2):
+    result = sum([v1[i] * v2[i] for i in range(len(v1))])
+
+    return result
+
+test_cases_2 = [
+    ([1, 2, 3], [4, 5, 6]),
+    ([2, 4, 6], [1, 3, 5]),
+    ([0, 1, 2], [3, 4, 5])
+]
+
+for i, (v1, v2) in enumerate(test_cases_2):
+    result = dot_product(v1, v2)
+    print(f"Test {i +  1}: {result}")
+
+#Quiz 10 - Perceptron Simulation
+def ReLU(x):
+    if x > 0:
+        return x
+    else:
+        return 0
+
+def perceptron_relu(weights, inputs, bias):
+    
+    weighted_sum = sum([weights[i] * inputs[i] for i in range(len(weights))]) + bias
+
+    result = ReLU(weighted_sum)
+
+    return result
+
+test_cases_3 = [
+    ([0.5, -0.6,  0.8], [1.0, 0.0, 1.0], -0.3),
+    ([0.2, 0.5, -0.4], [1.0, 2.0, -1.0], 0.1),
+    ([1.0, -1.0, 0.5], [0.5, 1.0, -0.5], -0.2)
+]
+
+
+for i, (weights, inputs, bias) in enumerate(test_cases_3):
+    result = perceptron_relu(weights, inputs, bias)
+    print(f"Test {i+1}: {result}")
