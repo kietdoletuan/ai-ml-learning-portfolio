@@ -16,12 +16,13 @@ Every lesson subfolder follows the same layout:
 ai-ml-learning-portfolio/
 │
 ├── course_work_projects/
-│   ├── lesson_name/
-│   │   ├── lesson_replication.py     - optional: code from the lesson itself 
-│   │   ├── project_[name]        - independent build using the lesson concept
-│   │   ├── data/                     - any datasets used (CSV, XLSX, etc.)
-│   │   │   └── dataset.csv
-│   │   └── README.md  
+│   ├── phase_name/
+│   │   ├── lesson_name/
+│   │     ├── lesson_replication.py     - optional: code from the lesson itself 
+│   │     ├── project_[name]        - independent build using the lesson concept
+│   │     ├── data/                     - any datasets used (CSV, XLSX, etc.)
+│   │     │   └── dataset.csv
+│   │     └── README.md  
 │   ├── ...
 │   └── 2025cohort/ - studied in parralel as advanced preparation
 │       ├── week01/
