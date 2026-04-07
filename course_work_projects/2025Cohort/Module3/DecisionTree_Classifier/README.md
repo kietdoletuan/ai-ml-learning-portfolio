@@ -1,4 +1,4 @@
-# Titanic Survivor Classifier — titanic_classifier.ipynb
+# Titanic Survivor Classifier 
 
 - Predicts passenger survival using a from-scratch Decision Tree classifier, validated against sklearn.
 
