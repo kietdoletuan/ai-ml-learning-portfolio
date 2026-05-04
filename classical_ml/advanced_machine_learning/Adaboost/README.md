@@ -2,7 +2,7 @@
 
 - Predicts passenger survival using an Adaboost classifier.
 
-- Dataset: Kaggle Titanic `train.csv` (891 rows). Dropped `Cabin`, `Ticket`, and `Name`. Filled missing `Age` with median and `Embarked` with mode. Encoded `Sex`, one-hot encoded `Embarked`, and engineered `Family = SibSp + Parch`.
+- Dataset: Kaggle Titanic `train.csv` (891 rows). Dropped `Cabin`, `Ticket`, and `Name`. Filled missing `Age` with median and `Embarked` with mode. Encoded `Sex`, one-hot encoded `Embarked`, and engineered `Family = SibSp + Parch` + 1.
 
 - Result: Best performance used `learning_rate=1.0`, with the model reaching peak accuracy early at `10` estimators. Test accuracy was `80.4%`, slightly below the Random Forest model, suggesting boosting offered limited gains on this small tabular dataset.
 
