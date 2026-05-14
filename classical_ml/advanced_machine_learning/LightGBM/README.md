@@ -14,3 +14,20 @@ Predicts passenger survival (0/1) on the Kaggle Titanic dataset using LGBM.
 - Plot 2 (correctly predicted died): Male Sex (-1.79) was the single dominant factor pushing toward death, partially offset by Age (+0.83) and Family (+0.24) — the model correctly identified this passenger as high mortality risk despite some mitigating features.
 
 - Plot 3 (incorrectly predicted — model predicted died, actual survived): Sex (-1.26) and Fare (-1.0) both pushed strongly toward death prediction, while Embarked_C (+0.59) partially offset — the model failed because this passenger's profile (male, low-ish fare, 3rd class) statistically maps to low survival, but they were an exception.
+
+## Deployment
+
+FastAPI endpoint serving Titanic survival predictions from the trained LightGBM model, containerized with Docker.
+
+**Run locally:**
+cd classical_ml/advanced_machine_learning/LightGBM/fastapi_demo
+docker build -t titanic-api .
+docker run -p 8000:8000 titanic-api
+
+**Test:** Open localhost:8000/docs → POST /predict
+
+**Example request:**
+{"Pclass": 3, "Sex": "male", "Embarked": "S", "SibSp": 0, "Parch": 0, "Fare": 7.25, "Age": 22.0}
+
+**Example response:**
+{"Survived": 0, "Probability": 0.03}
