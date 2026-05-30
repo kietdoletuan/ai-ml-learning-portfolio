@@ -2,3 +2,4 @@
 **/*.xlxs
 **/*.pyc
 mlruns/
+mlflow.db
