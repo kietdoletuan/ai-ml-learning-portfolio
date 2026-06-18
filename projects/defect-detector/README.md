@@ -28,7 +28,6 @@ The backbone is a pretrained ResNet18 or WideResNet — the same architecture us
 
 On one category, a supervised binary good-vs-defect classifier will be built using ResNet18 transfer learning. This is not a fallback and not scope creep. It exists for a specific purpose: to demonstrate concretely why supervised classification is data-starved on MVTec AD, and to produce a direct quantitative comparison between the anomaly detection result and the supervised result on identical data.
 
-This comparison is a portfolio differentiator. It proves understanding of why the field uses one-class methods rather than just stating it. The supervised track uses the same ResNet18 fine-tuning pipeline already built and committed on CIFAR-10 (2026-06-16), so the implementation cost is low and the educational payoff is high.
 
 ---
 
