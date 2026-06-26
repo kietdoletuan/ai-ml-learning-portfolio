@@ -1,5 +1,3 @@
-from hmac import trans_36
-
 import streamlit as st
 import langcodes
 from deep_translator import GoogleTranslator
@@ -63,8 +61,8 @@ def fix_typos(text, code):
     for token in tokens:
         if token.isalpha() and len(token) > 1:
             suggestion = spellcheck.correction(token.lower()) or token
-            suggestion = spellcheck.correction(token.title()) if token.istitle() else suggestion
-            suggestion = spellcheck.correction(token.upper()) if token.isupper() else suggestion
+            suggestion = suggestion.title() if token.istitle() else suggestion
+            suggestion = suggestion.upper() if token.isupper() else suggestion
             fixed.append(suggestion)
         else:
             fixed.append(token)
