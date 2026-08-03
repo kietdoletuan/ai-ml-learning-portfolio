@@ -1,0 +1,28 @@
+{
+  "string2id": {
+    "O": 0,
+    "B-MACHINE": 1,
+    "B-COMPONENT": 2,
+    "B-DEFECT_TYPE": 3,
+    "B-ERROR_CODE": 4,
+    "B-LOCATION": 5,
+    "I-MACHINE": 6,
+    "I-COMPONENT": 7,
+    "I-DEFECT_TYPE": 8,
+    "I-ERROR_CODE": 9,
+    "I-LOCATION": 10
+  },
+  "id2string": {
+    "0": "O",
+    "1": "B-MACHINE",
+    "2": "B-COMPONENT",
+    "3": "B-DEFECT_TYPE",
+    "4": "B-ERROR_CODE",
+    "5": "B-LOCATION",
+    "6": "I-MACHINE",
+    "7": "I-COMPONENT",
+    "8": "I-DEFECT_TYPE",
+    "9": "I-ERROR_CODE",
+    "10": "I-LOCATION"
+  }
+}
