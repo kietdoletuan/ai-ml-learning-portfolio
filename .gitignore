@@ -5,3 +5,5 @@ mlruns/
 mlflow.db
 datasets/
 results/
+!projects/vietnamese-nlp/data/sentences_labeled.csv
+!projects/vietnamese-nlp/data/sentences_raw.csv
