@@ -1,0 +1,16 @@
+roi: [23, 570, 2563, 909]      # x, y, width, height in px
+mm_per_px: 0.0271              # from 68mm reference / 2510px, 2026-08-29
+expected_thread_mm: null       # fill in from spec before threshold/measurement step
+
+# model switched PaDiM -> PatchCore 2026-08-31: PaDiM's per-location covariance was
+# statistically unreliable at 141 training frames (AUROC ~0.5, thread sometimes
+# inverted). PatchCore doesn't fit a distribution, so it doesn't hit that failure
+# mode. See 03_padim_bolt.ipynb for the comparison, 04_patchcore_bolt.ipynb for
+# the production run this config reflects.
+model: patchcore
+backbone: resnet18
+image_size: [256, 720]         # (height, width), keeps ROI's native aspect ratio, never resize square
+checkpoint: results/bolt_patchcore/20260831_162829/Patchcore/bolt/v0/weights/lightning/model.ckpt
+                                # local path, swap for an HF Hub {repo_id, filename} pointer once pushed
+threshold: 12.38                # part-level (max raw score across roll states), recall-biased
+                                 # heldout FPR ~4.2% (1/24 parts) | surface recall 100% (14/14) | thread recall 92% (12/13)
