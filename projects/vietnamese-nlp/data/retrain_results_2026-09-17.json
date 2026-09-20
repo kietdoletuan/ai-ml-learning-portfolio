@@ -1,0 +1,85 @@
+{
+  "baseline": {
+    "eval_loss": 2.3992583751678467,
+    "eval_model_preparation_time": 0.003,
+    "eval_COMPONENT": {
+      "precision": 0.07692307692307693,
+      "recall": 0.05,
+      "f1": 0.060606060606060615,
+      "number": 20
+    },
+    "eval_DEFECT_SYMPTOM": {
+      "precision": 0.03508771929824561,
+      "recall": 0.08333333333333333,
+      "f1": 0.04938271604938271,
+      "number": 24
+    },
+    "eval_ERROR_CODE": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "number": 9
+    },
+    "eval_LOCATION": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "number": 4
+    },
+    "eval_MACHINE": {
+      "precision": 0.0410958904109589,
+      "recall": 0.1111111111111111,
+      "f1": 0.06,
+      "number": 27
+    },
+    "eval_overall_precision": 0.015463917525773196,
+    "eval_overall_recall": 0.07142857142857142,
+    "eval_overall_f1": 0.025423728813559324,
+    "eval_overall_accuracy": 0.09050772626931568,
+    "eval_runtime": 2.0491,
+    "eval_samples_per_second": 12.2,
+    "eval_steps_per_second": 1.952,
+    "epoch": 0
+  },
+  "final": {
+    "eval_loss": 0.8350059390068054,
+    "eval_COMPONENT": {
+      "precision": 0.42424242424242425,
+      "recall": 0.7,
+      "f1": 0.5283018867924527,
+      "number": 20
+    },
+    "eval_DEFECT_SYMPTOM": {
+      "precision": 0.32,
+      "recall": 0.3333333333333333,
+      "f1": 0.32653061224489793,
+      "number": 24
+    },
+    "eval_ERROR_CODE": {
+      "precision": 0.7272727272727273,
+      "recall": 0.8888888888888888,
+      "f1": 0.7999999999999999,
+      "number": 9
+    },
+    "eval_LOCATION": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "number": 4
+    },
+    "eval_MACHINE": {
+      "precision": 0.5416666666666666,
+      "recall": 0.48148148148148145,
+      "f1": 0.5098039215686274,
+      "number": 27
+    },
+    "eval_overall_precision": 0.4845360824742268,
+    "eval_overall_recall": 0.5595238095238095,
+    "eval_overall_f1": 0.5193370165745855,
+    "eval_overall_accuracy": 0.7704194260485652,
+    "eval_runtime": 1.658,
+    "eval_samples_per_second": 15.078,
+    "eval_steps_per_second": 2.412,
+    "epoch": 15.0
+  }
+}
