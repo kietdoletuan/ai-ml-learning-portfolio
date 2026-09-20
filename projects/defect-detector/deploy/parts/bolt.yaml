@@ -1,0 +1,18 @@
+display_name: Hex-head bolt
+roi_size: [2563, 909]      # W, H
+image_size: [256, 720]     # h, W
+min_views: 2
+max_views: 3
+threshold: 12.38
+backbone: resnet18
+layers: [layer2, layer3]
+coreset_ratio: 0.02
+num_neighbors: 9
+model_filename: model.ckpt
+model_sha256: 865197a0782a2e258b202bec7b03622b00dfff674a408b281a59ceb15fca3c83
+limitations: >-
+  Calibrated to one camera, fixture and crop process. Not for arbitrary photographs and not
+  a production inspection guarantee.
+model_repo_id: KietDo/boltA04096
+model_revision: 76b10a2a6b1285d520af4725931e78948bb38228
+local_checkpoint: results/bolt_patchcore/20260831_162829/Patchcore/bolt/v0/weights/lightning/model.ckpt
