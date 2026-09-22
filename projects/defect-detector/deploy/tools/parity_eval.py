@@ -1,8 +1,8 @@
-"""Reproduce the bolt held-out evaluation through the deploy path (gate G1).
+"""G1 parity gate check.
 
 Run from projects/defect-detector:
-    python deploy/tools/parity_eval.py            # pinned model from the Hub
-    python deploy/tools/parity_eval.py --local    # checkpoint on disk
+    python deploy/tools/parity_eval.py            # pinned Hub model
+    python deploy/tools/parity_eval.py --local    # local checkpoint
 """
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from core.registry import load_registry  # noqa: E402
 
 PART_ID = re.compile(r"_p(\d+)_r\d+_")
 
-# name -> (folder under the data root, parts flagged, parts total), from 04_patchcore_bolt.ipynb
+# values from 04_patchcore_bolt.ipynb
 EXPECTED = {
     "heldout normal": ("heldout", 1, 24),
     "surface defect": ("defects/surface", 14, 14),

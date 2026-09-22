@@ -1,5 +1,4 @@
-"""Per-part deployment contract: everything the engine needs to know about one part.
-"""
+"""Per-part deployment contract."""
 from __future__ import annotations
 
 import math
@@ -26,11 +25,11 @@ class ContractError(ValueError):
 class PartSpec:
     part_id: str
     display_name: str
-    roi_size: tuple[int, int]          # (width, height) of the accepted cropped upload
-    image_size: tuple[int, int]        # (height, width) fed to the model
+    roi_size: tuple[int, int]          # (width, height)
+    image_size: tuple[int, int]        # (height, width)
     min_views: int
     max_views: int
-    threshold: float                   # part-level; flagged only when part_score > threshold
+    threshold: float                   # part-level, strict >
     backbone: str
     layers: tuple[str, ...]
     coreset_ratio: float
@@ -38,9 +37,9 @@ class PartSpec:
     model_filename: str
     model_sha256: str
     limitations: str
-    model_repo_id: str | None = None     # None until the HF model repo exists
-    model_revision: str | None = None    # full 40-char commit, never a branch name
-    local_checkpoint: str | None = None  # dev-only source, relative to projects/defect-detector/
+    model_repo_id: str | None = None     # unset until repo exists
+    model_revision: str | None = None    # commit hash, not branch
+    local_checkpoint: str | None = None  # dev-only, relative path
 
     @property
     def has_remote_source(self) -> bool:

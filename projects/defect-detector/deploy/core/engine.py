@@ -23,7 +23,7 @@ class PartUnavailable(RuntimeError):
 @dataclass(frozen=True)
 class Prediction:
     result: PartResult
-    anomaly_maps: np.ndarray  # (views, H, W), raw scores in upload order
+    anomaly_maps: np.ndarray  # (views, H, W)
 
 
 def _check_hparams(spec: PartSpec, saved: dict) -> None:
@@ -41,11 +41,10 @@ def _check_hparams(spec: PartSpec, saved: dict) -> None:
 
 
 def build_model(spec: PartSpec, checkpoint: Path) -> Patchcore:
-    # weights_only=False because the file embeds a torchvision transform; the caller has
-    # already hash-checked these bytes (see artifacts.resolve_checkpoint)
+    # already hash-checked upstream
     saved = torch.load(checkpoint, map_location="cpu", weights_only=False)
     _check_hparams(spec, saved["hyper_parameters"])
-    # pre_trained=False keeps startup offline; the real weights come from the state dict
+    # keeps startup offline
     model = Patchcore(
         backbone=spec.backbone,
         layers=list(spec.layers),
@@ -58,7 +57,7 @@ def build_model(spec: PartSpec, checkpoint: Path) -> Patchcore:
 
 
 def score_batch(model: Patchcore, batch: torch.Tensor) -> tuple[list[float], np.ndarray]:
-    # raw scores only: anomalib's generated labels compare against a generic 0.5 threshold
+    # ignore library's 0.5 label
     with torch.inference_mode():
         out = model.model(batch)
     scores = [float(s) for s in out["pred_score"]]
@@ -88,7 +87,7 @@ class Engine:
 
     def predict(self, part_id: str, paths: Sequence[str | Path]) -> Prediction:
         spec = self._registry.get(part_id)
-        # input problems are reported before any model is downloaded or loaded
+        # validate before loading model
         images, names = load_views(paths, spec)
         batch = to_batch(images, spec)
         scores, maps = score_batch(self._get_model(spec), batch)

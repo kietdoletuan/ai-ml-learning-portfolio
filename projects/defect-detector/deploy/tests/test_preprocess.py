@@ -87,7 +87,6 @@ class BatchTests(unittest.TestCase):
         blue = make_image(self.dir, "blue.png", color=(0, 0, 255))
         images, _ = load_views([red, blue], SPEC)
         batch = to_batch(images, SPEC)
-        # (1 - 0.485) / 0.229 = 2.249 on the lit channel; the first view must be the red one
         self.assertAlmostEqual(float(batch[0, 0].mean()), (1 - 0.485) / 0.229, places=3)
         self.assertAlmostEqual(float(batch[1, 2].mean()), (1 - 0.406) / 0.225, places=3)
         self.assertLess(float(batch[0, 2].mean()), 0)
@@ -99,7 +98,7 @@ class BatchTests(unittest.TestCase):
         img.save(path)
         images, _ = load_views([path, path], SPEC)
         batch = to_batch(images, SPEC)
-        # a center crop would cut the left edge off; here its first column is still bright
+        # proves no center crop
         self.assertGreater(float(batch[0, 0, :, 0].mean()), 1.0)
 
 

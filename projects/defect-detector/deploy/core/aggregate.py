@@ -22,7 +22,7 @@ def aggregate(part_id: str, view_names: Sequence[str], view_scores: Sequence[flo
     if not all(math.isfinite(s) for s in view_scores):
         raise ValueError(f"non-finite view score in {list(view_scores)}")
 
-    # max() keeps the first of equal scores, so a tie names the earlier view
+    # ties keep earliest view
     top = max(range(len(view_scores)), key=view_scores.__getitem__)
     part_score = float(view_scores[top])
     return PartResult(

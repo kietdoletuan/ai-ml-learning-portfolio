@@ -29,7 +29,7 @@ def load_views(paths: Sequence[str | Path], spec: PartSpec) -> tuple[list[Image.
     for path in paths:
         try:
             with Image.open(path) as im:
-                # size comes from the header, so a wrong-sized file is rejected before decoding it
+                # cheap reject before decode
                 if im.size != spec.roi_size:
                     raise InputError(
                         f"{path.name} is {im.size[0]}x{im.size[1]} pixels, but {spec.display_name} "

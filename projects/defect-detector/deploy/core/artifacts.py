@@ -41,6 +41,6 @@ def resolve_checkpoint(spec: PartSpec, *, prefer_local: bool = False) -> Path:
             filename=spec.model_filename,
             revision=spec.model_revision,
         ))
-    # the checkpoint is loaded with weights_only=False, so the bytes must match before anything reads them
+    # verify before untrusted load
     verify_sha256(path, spec.model_sha256)
     return path

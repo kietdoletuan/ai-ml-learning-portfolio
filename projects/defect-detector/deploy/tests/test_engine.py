@@ -18,7 +18,7 @@ NORMAL = [DATA / "heldout" / f"bolt_normal_heldout_p23_r{i}_A.png" for i in (1, 
 SURFACE = [DATA / "defects" / "surface" / f"bolt_defect_surface_p12_r{i}_A.png" for i in (1, 2)]
 THREAD = [DATA / "defects" / "thread" / f"bolt_defect_thread_p03_r{i}_A.png" for i in (1, 2)]
 
-NOTEBOOK_SCORE = 10.957717895507812  # bolt_normal_heldout_p23_r1_A in 04_patchcore_bolt.ipynb
+NOTEBOOK_SCORE = 10.957717895507812  # source: 04_patchcore_bolt.ipynb
 
 
 @unittest.skipUnless(CHECKPOINT.is_file() and DATA.is_dir(), "needs the local checkpoint and data/bolt_roi")
