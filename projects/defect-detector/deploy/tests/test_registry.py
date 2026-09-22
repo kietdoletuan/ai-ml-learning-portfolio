@@ -58,6 +58,17 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ContractError):
             PartSpec.from_dict("bolt", {**GOOD, "model_sha256": "xyz"})
 
+    def test_layers_threshold_and_repo_id_validated(self):
+        for bad_layers in ("layer2", [], [2, 3], None):
+            with self.assertRaisesRegex(ContractError, "layers"):
+                PartSpec.from_dict("bolt", {**GOOD, "layers": bad_layers})
+        for bad_threshold in (float("nan"), float("inf"), 0, -1.0):
+            with self.assertRaisesRegex(ContractError, "threshold"):
+                PartSpec.from_dict("bolt", {**GOOD, "threshold": bad_threshold})
+        for bad_repo in ("", "no-slash", "/name", "user/", "a/b/c"):
+            with self.assertRaisesRegex(ContractError, "user/name"):
+                PartSpec.from_dict("bolt", {**GOOD, "model_repo_id": bad_repo, "model_revision": "a" * 40})
+
     def test_bad_part_id_rejected(self):
         with self.assertRaises(ContractError):
             PartSpec.from_dict("Bolt-2", GOOD)

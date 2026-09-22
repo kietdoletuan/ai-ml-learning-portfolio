@@ -2,9 +2,11 @@
 """
 from __future__ import annotations
 
+import math
 import re
 from dataclasses import dataclass
 
+_REPO_ID = re.compile(r"^[A-Za-z0-9][\w.-]*/[\w.-]+$")
 _HEX40 = re.compile(r"^[0-9a-f]{40}$")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
 _PART_ID = re.compile(r"^[a-z][a-z0-9_]*$")
@@ -57,10 +59,18 @@ class PartSpec:
         min_v, max_v = int(d["min_views"]), int(d["max_views"])
         if not 1 <= min_v <= max_v:
             raise ContractError(f"{part_id}: need 1 <= min_views <= max_views, got {min_v}, {max_v}")
+        threshold = float(d["threshold"])
+        if not math.isfinite(threshold) or threshold <= 0:
+            raise ContractError(f"{part_id}: threshold must be a positive number, got {d['threshold']!r}")
+        layers = d["layers"]
+        if not isinstance(layers, (list, tuple)) or not layers or not all(isinstance(x, str) for x in layers):
+            raise ContractError(f"{part_id}: layers must be a non-empty list of layer names, got {layers!r}")
         if not _HEX64.match(str(d["model_sha256"])):
             raise ContractError(f"{part_id}: model_sha256 must be 64 lowercase hex chars")
 
         repo, rev = d.get("model_repo_id"), d.get("model_revision")
+        if repo is not None and not _REPO_ID.match(str(repo)):
+            raise ContractError(f"{part_id}: model_repo_id must look like 'user/name', got {repo!r}")
         if (repo is None) != (rev is None):
             raise ContractError(f"{part_id}: model_repo_id and model_revision must be set together")
         if rev is not None and not _HEX40.match(str(rev)):
@@ -76,9 +86,9 @@ class PartSpec:
             image_size=(img_h, img_w),
             min_views=min_v,
             max_views=max_v,
-            threshold=float(d["threshold"]),
+            threshold=threshold,
             backbone=str(d["backbone"]),
-            layers=tuple(d["layers"]),
+            layers=tuple(layers),
             coreset_ratio=float(d["coreset_ratio"]),
             num_neighbors=int(d["num_neighbors"]),
             model_filename=str(d["model_filename"]),
