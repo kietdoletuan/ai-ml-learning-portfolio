@@ -5,14 +5,15 @@ from unittest.mock import Mock
 
 import numpy as np
 from PIL import Image
+from streamlit.testing.v1 import AppTest
 
-from app import DEPLOY, create_app, predict_uploads
 from core.aggregate import aggregate
 from core.engine import Engine, PartUnavailable, Prediction
 from core.registry import load_registry
+from service import DEPLOY, predict_uploads, save_uploads
 
 
-class AppTests(unittest.TestCase):
+class ServiceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.registry = load_registry(DEPLOY / "parts")
@@ -28,7 +29,7 @@ class AppTests(unittest.TestCase):
         for error in (PartUnavailable("broken checkpoint"), RuntimeError("bad map")):
             engine = Mock()
             engine.predict.side_effect = error
-            with self.assertLogs("app", level="ERROR"):
+            with self.assertLogs("service", level="ERROR"):
                 message, rows, gallery = predict_uploads(engine, self.registry, "bolt", [])
             self.assertNotIn("PASSED", message)
             self.assertEqual((rows, gallery), ([], []))
@@ -48,8 +49,21 @@ class AppTests(unittest.TestCase):
         self.assertIn("second.png", gallery[0][1])
         self.assertIn("first.png", gallery[1][1])
 
-    def test_interface_builds_without_loading_a_model(self):
-        engine = Engine(self.registry)
-        app = create_app(self.registry, engine=engine, examples=[])
-        self.assertEqual(engine._models, {})
-        self.assertTrue(any(item.get("api_name") == "predict" for item in app.config["dependencies"]))
+    def test_duplicate_upload_names_are_kept_in_order(self):
+        uploads = [Mock(), Mock()]
+        for upload, data in zip(uploads, (b"a", b"b")):
+            upload.name = "view.png"
+            upload.getvalue.return_value = data
+        with tempfile.TemporaryDirectory() as folder:
+            paths = save_uploads(uploads, Path(folder))
+            self.assertEqual([p.name for p in paths], ["view.png", "view.png"])
+            self.assertEqual([p.read_bytes() for p in paths], [b"a", b"b"])
+
+
+class AppTests(unittest.TestCase):
+    def test_page_renders_without_error(self):
+        # file_uploader not scriptable here
+        app = AppTest.from_file(str(DEPLOY / "app.py"), default_timeout=120).run()
+        self.assertFalse(app.exception)
+        self.assertEqual(app.selectbox[0].value, "bolt")
+        self.assertIn("Inspect", [button.label for button in app.button])
