@@ -1,0 +1,19 @@
+display_name: Special nut
+roi_size: [700, 700]       # W, H
+image_size: [256, 256]     # h, W
+min_views: 4
+max_views: 4
+threshold: 13.072964668273926
+backbone: resnet18
+layers: [layer2, layer3]
+coreset_ratio: 0.02
+num_neighbors: 9
+model_filename: model.ckpt
+model_sha256: b7066cbe2f09f2e232095787d2ff30a0e65acd92d468f0d2eaca520b1d2d8902
+limitations: >-
+  Calibrated to one camera, fixture and crop process: four views per nut (face A and face B,
+  each under top and under light). Small bright marks on face B under top light can raise false
+  alarms. Not for arbitrary photographs and not a production inspection guarantee.
+local_checkpoint: results/nut_patchcore/20261017_153400/joint/Patchcore/joint/v0/weights/lightning/model.ckpt
+model_repo_id: KietDo/nut-special-patchcore
+model_revision: 3c87c3aee0e7add45e154bd6687ec5cee545d95a
