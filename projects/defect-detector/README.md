@@ -2,7 +2,7 @@
 
 ## 1. Overview
 A personal project defect detector trained to detect defects in types of bolts and nuts using self-captured images of products from real machine components.
-The detector can be accessed through Streamlit Community Cloud, and currently, it supports one bolt configuration.
+The detector can be accessed through Streamlit Community Cloud, and currently, it supports two types of configuration.
 ## 2. Shared Inspection System
 ### PatchCore
 The model used here is PatchCore, which uses a pretrained feature extractor to obtain normal patch features. These are retained in a "memory bank" so that at inference time, new patches are then compared with the saved normal memory to calculate the anomaly score - the more unfamiliar the patches, the higher the anomaly score they receive. 
@@ -47,7 +47,7 @@ To make a prediction, the Engine must first validate its inputs and correspondin
 | Surface defective parts caught | 14/14 | 100% | 78.5-100% |
 | Thread defective parts caught | 12/13 | 92.3% | 66.7-98.6% |
 ### Nut: Part-Level AUROC
-| Group | Normal Images | Defect Images | AUROC | 
+| Group | Normal | Defect | AUROC | 
 | --- | ---: | ---: | --- |
 | Val | 12 | 13 | 1.0 |
 | Test | 12 | 12 | 0.9375 |
@@ -56,7 +56,7 @@ To make a prediction, the Engine must first validate its inputs and correspondin
 | --- | ---: | ---: | --- |
 | False positive | 3/12 | 25% | 8.9-53.2% |
 | Defective parts caught | 12/12 | 100% | 75.8-100% |
-- For bolts and nuts, the model's threshold `12.38` and `13.0730` were chosen from the 24 separate held-out set, respectively.
+- For bolts and nuts, the model's threshold `12.38` and `13.0730` were chosen from the 24 and 12 separate held-out set, respectively.
 ## 5. Live 
 [Try the live app](https://kietdo-defect-detector.streamlit.app/)
 - Bolt dataset: https://huggingface.co/datasets/KietDo/bolt-roi
@@ -64,5 +64,5 @@ To make a prediction, the Engine must first validate its inputs and correspondin
 ## 6. Limitations, Design Decisions, and Next Steps
 - Due to difficulties with obtaining normal and defect samples without disrupting production, the data volume per component can be modest.
 - PaDiM was originally chosen for this defect detection problem. However, it is unsuitable for the obtained amount of data and configuration (`03_padim_bolt.ipynb`).
-- Model stability heavily depends on lighting conditions
-- All false postive nuts came from the view B_above
+- Model stability heavily depends on lighting conditions.
+- All false positive nuts came from the view B_above.
