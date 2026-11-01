@@ -16,9 +16,13 @@ _inference_lock = threading.Lock()
 def input_details(registry: Registry, part_id: str) -> str:
     spec = registry.get(part_id)
     width, height = spec.roi_size
+    if spec.min_views == spec.max_views:
+        view_count = str(spec.min_views)
+    else:
+        view_count = f"{spec.min_views}–{spec.max_views}"
     return (
-        f"{spec.display_name}: {spec.min_views}–{spec.max_views} cropped ROI images of the same part; "
-        f"exactly {width} × {height} pixels each. Different roll states preferred.\n\n"
+        f"{spec.display_name}: {view_count} cropped ROI images of the same part; "
+        f"exactly {width} × {height} pixels each.\n\n"
         f"{spec.limitations}"
     )
 

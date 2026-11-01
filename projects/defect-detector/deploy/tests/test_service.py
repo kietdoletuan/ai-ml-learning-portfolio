@@ -10,7 +10,7 @@ from streamlit.testing.v1 import AppTest
 from core.aggregate import aggregate
 from core.engine import Engine, PartUnavailable, Prediction
 from core.registry import load_registry
-from service import DEPLOY, predict_uploads, save_uploads
+from service import DEPLOY, input_details, predict_uploads, save_uploads
 
 
 class ServiceTests(unittest.TestCase):
@@ -58,6 +58,14 @@ class ServiceTests(unittest.TestCase):
             paths = save_uploads(uploads, Path(folder))
             self.assertEqual([p.name for p in paths], ["view.png", "view.png"])
             self.assertEqual([p.read_bytes() for p in paths], [b"a", b"b"])
+
+    def test_input_details_fits_each_part(self):
+        bolt_text = input_details(self.registry, "bolt")
+        nut_text = input_details(self.registry, "nut_special")
+        self.assertIn("roll states", bolt_text)
+        self.assertNotIn("roll states", nut_text)
+        self.assertIn("2–3 cropped", bolt_text)
+        self.assertIn("4 cropped", nut_text)
 
 
 class AppTests(unittest.TestCase):
