@@ -1,7 +1,7 @@
 # Defect Detector
 
 ## 1. Overview
-A personal project defect detector trained to detect defects in a type of bolt using self-captured images of products from real machine components.
+A personal project defect detector trained to detect defects in types of bolts and nuts using self-captured images of products from real machine components.
 The detector can be accessed through Streamlit Community Cloud, and currently, it supports one bolt configuration.
 ## 2. Shared Inspection System
 ### PatchCore
@@ -13,6 +13,7 @@ To make a prediction, the Engine must first validate its inputs and correspondin
 | Part / view | Status | Configuration |
 | --- | --- | --- | 
 | Bolt | Live | 2-3 views |
+| Special Nut | Live | 4 views |
 
 ### Bolt Image Collection
 
@@ -22,9 +23,17 @@ To make a prediction, the Engine must first validate its inputs and correspondin
 | Separate normal bolts | 24 | 48 | 2 | Evaluation; Threshold Selection |
 | Surface defective bolts | 14 | 41 | 2-3 | Evaluation |
 | Thread defective bolts | 13 | 39 | 3 | Evaluation |
+### Nut Image Collection
+
+| Group | Physical parts | Images | Views per part | Role |
+| --- | ---: | ---: | --- | --- |
+| Normal nuts | not tracked | 208 | 4 | Training |
+| Separate normal nuts | 24 | 96 | 4 | Evaluation; Test |
+| Defective nuts | 25 | 99 | 4 | Evaluation; Test |
+| Demo | 2 | 8 | 4 | Demo |
 ### Evaluation Protocol
 - Views are grouped by physical part (labeled p01, p02, p03, ...)
-- A part is assumed to be defective if its maximum view anomaly score is greater than 12.38
+- A part is assumed to be defective if its maximum view anomaly score is greater than the model's chosen threshold
 ## 4. Results
 ### Bolt: Frame-Level AUROC
 | Images compared | Normal Images | Defect Images | AUROC | 
@@ -37,9 +46,23 @@ To make a prediction, the Engine must first validate its inputs and correspondin
 | False positive | 1/24 | 4.2% | 0.7-20.2% |
 | Surface defective parts caught | 14/14 | 100% | 78.5-100% |
 | Thread defective parts caught | 12/13 | 92.3% | 66.7-98.6% |
-- The model's threshold `12.38` was chosen with the 24 separate normal held-out set.
-## 5. Live App
+### Nut: Part-Level AUROC
+| Group | Normal Images | Defect Images | AUROC | 
+| --- | ---: | ---: | --- |
+| Val | 12 | 13 | 1.0 |
+| Test | 12 | 12 | 0.9375 |
+### Nut: Part-Level Decisions
+| Evaluation group | Outcome | Rate | 95% Wilson interval | 
+| --- | ---: | ---: | --- |
+| False positive | 3/12 | 25% | 8.9-53.2% |
+| Defective parts caught | 12/12 | 100% | 75.8-100% |
+- For bolts and nuts, the model's threshold `12.38` and `13.0730` were chosen from the 24 separate held-out set, respectively.
+## 5. Live 
 [Try the live app](https://kietdo-defect-detector.streamlit.app/)
+- Bolt dataset: https://huggingface.co/datasets/KietDo/bolt-roi
+- Nut dataset: https://huggingface.co/datasets/KietDo/nut-special-roi
 ## 6. Limitations, Design Decisions, and Next Steps
 - Due to difficulties with obtaining normal and defect samples without disrupting production, the data volume per component can be modest.
 - PaDiM was originally chosen for this defect detection problem. However, it is unsuitable for the obtained amount of data and configuration (`03_padim_bolt.ipynb`).
+- Model stability heavily depends on lighting conditions
+- All false postive nuts came from the view B_above
